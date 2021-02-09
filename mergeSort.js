@@ -20,7 +20,7 @@ var len_of_arr = 40;
 // store random value in arr[]
 for (var i = 0; i < len_of_arr; i++) 
 {
-    arr.push(Math.round(Math.random() * 270) + 20)
+    arr.push(Math.round(Math.random() * 250) )
 }
 
 //intialize itmd and visited array with 0
@@ -30,7 +30,8 @@ for (var i = 0; i < len_of_arr; i++)
     visited.push(0)
 }
 
-//merge of two arrays
+//merging of two sub array
+// https://www.geeksforgeeks.org/merge-two-sorted-arrays/
 function mergeArray(start, end)
 {
 
@@ -38,6 +39,7 @@ function mergeArray(start, end)
     let start1 = start, start2 = mid + 1
     let end1 = mid, end2 = end
     
+    // Initial index of merged subarray
     let index = start
 
     while (start1 <= end1 && start2 <= end2) 
@@ -56,6 +58,8 @@ function mergeArray(start, end)
         }
     }
 
+    // Copy the remaining elements of
+    // arr[], if there are any
     while (start1 <= end1) 
     {
         itmd[index] = arr[start1]
@@ -80,7 +84,7 @@ function mergeArray(start, end)
 }
 
 //function for showing visualization 
-//affect
+//effect
 function drawBars(start, end)
 {
     //clear pevious unsorted bars
@@ -89,19 +93,21 @@ function drawBars(start, end)
     //styling of bars
     for (let i = 0; i < len_of_arr; i++) 
     {
+        //changing styles of bars
         ctrl.fillStyle = "black"
         ctrl.shadowOffsetX = 2
         ctrl.shadowColor = "chocolate";
         ctrl.shadowBlur = 3;
         ctrl.shadowOffsetY =5;
+       
         
-        //size of bars
-        ctrl.fillRect(20 * i, 300 - arr[i], 12, arr[i])
+        //size of rectangle of bars
+        ctrl.fillRect(25 * i, 300 - arr[i], 20, arr[i])
         
         if (visited[i]) 
         {
             ctrl.fillStyle = "#006d13"
-            ctrl.fillRect(20 * i, 300 - arr[i], 12, arr[i])
+            ctrl.fillRect(25 * i, 300 - arr[i], 20, arr[i])
             ctrl.shadowOffsetX = 2
         
         }
@@ -110,9 +116,9 @@ function drawBars(start, end)
     for (let i = start; i <= end; i++) 
     {
         ctrl.fillStyle = "orange"
-        ctrl.fillRect(20 * i, 300 - arr[i], 12, arr[i])
+        ctrl.fillRect(25 * i, 300 - arr[i], 18, arr[i])
         ctrl.fillStyle = "#cdff6c"
-        ctrl.fillRect(20 * i,300, 12, arr[i])
+        ctrl.fillRect(25 * i,300, 18, arr[i])
         visited[i] = 1
     }
 
@@ -135,11 +141,15 @@ const mergeSort = async (start, end) => {
         await mergeSort(mid + 1, end)
         await mergeArray(start, end)
         await drawBars(start, end)
+
+        //waiting time is 800ms
         await timeout(800)
     }
 
 }
 //canvasElemennts function
+//for store width and height in
+//canvas variable
 function canvasElements()
 {
     canvas = document.getElementById("Canvas")
@@ -154,9 +164,9 @@ const performer = async () =>
     await mergeSort(0, len_of_arr - 1)
     await drawBars()
 
-    //code for change title1 text
+    //code for change title1 text 
     const title1_changer = document.querySelector(".title1")
-    title1_changer.innerText = "ARRAY IS COMPLETELY SORTED"
+    title1_changer.innerText = "Array is completely sorted"
 }
 performer()
 
